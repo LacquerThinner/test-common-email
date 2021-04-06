@@ -63,4 +63,26 @@ public class EmailTest {
 		
 		assertEquals(3,email.getCcAddresses().size());
 	}
+
+	/*Tests addHeader with a test name and value*/
+	@Test
+	public void testAddHeader() throws Exception {
+		
+		email.addHeader("testName", "testValue");
+		
+	}
+	/*Tests that addHeader throws an illegal argument exception if name is given an empty string*/
+	@Test(expected=IllegalArgumentException.class)
+	public void testEmptyNameAddHeader() throws Exception {
+		
+		email.addHeader("", "testValue");
+		
+	}
+	/*Tests that addHeader throws an illegal argument exception if value is given an empty string*/
+	@Test(expected=IllegalArgumentException.class)
+	public void testEmptyValueAddHeader() throws Exception {
+		
+		email.addHeader("testName", "");
+		
+	}
 }
