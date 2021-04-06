@@ -198,4 +198,25 @@ public class EmailTest {
 		String actualResult = email.getHostName();
 		assertEquals(null, actualResult);
 	}
+
+	/*Tests getMailSession with a host name set up first and ssl set to to true*/
+	@Test
+	public void testGetMailSession() throws Exception {
+		
+		/*sets up host name and ssl to true*/
+		email.setHostName("testHost");
+		email.setSSLOnConnect(true);
+		
+		Session actualResult = email.getMailSession();
+		assertEquals(email.getMailSession(), actualResult);
+	}
+	/*Tests getMailSession with no host name*/
+	@Test(expected=EmailException.class)
+	public void testNoHostGetMailSession() throws Exception {
+		
+		/*sets ssl to true*/
+		email.setSSLOnConnect(true);
+		
+		Session actualResult = email.getMailSession();
+	}
 }
