@@ -52,4 +52,15 @@ public class EmailTest {
 		email.addBcc(TEST_INVALID_EMAILS);
 		
 	}
+
+	/*Tests addCc with a list of test emails*/
+	@Test
+	public void testAddCc() throws Exception {
+		
+		for (int i = 0; i < 3; i++) {
+			email.addCc(TEST_EMAILS[i]);
+		}
+		
+		assertEquals(3,email.getCcAddresses().size());
+	}
 }
