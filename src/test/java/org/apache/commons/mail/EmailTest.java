@@ -180,4 +180,22 @@ public class EmailTest {
 		email.buildMimeMessage();
 		
 	}
+
+	/*Tests getHostName with a host name set up first*/
+	@Test
+	public void testGetHostName() throws Exception {
+		
+		/*sets up host name*/
+		email.setHostName("testHost");
+		
+		String actualResult = email.getHostName();
+		assertEquals("testHost", actualResult);
+	}
+	/*Tests getHostName without setting up a host name first*/
+	@Test
+	public void testNullGetHostName() throws Exception {
+		
+		String actualResult = email.getHostName();
+		assertEquals(null, actualResult);
+	}
 }
