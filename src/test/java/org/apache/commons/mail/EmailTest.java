@@ -97,4 +97,87 @@ public class EmailTest {
 		assertEquals(3,email.getReplyToAddresses().size());
 		
 	}
+
+	/*Tests a successful buildMimeMessage with with the minimum amount of info to work*/
+	@Test
+	public void testBuildMimeMessage() throws Exception {
+		
+		/*sets up host name, sender, and recipients needed to build a mime message*/
+		email.setHostName("HostName");
+		email.setFrom("test@email.org");
+		email.addTo("testemail@emailtest.com");
+		
+		email.buildMimeMessage();
+		
+	}
+	/*Tests a successful buildMimeMessage with a MimeMultipart body plus extras*/
+	@Test
+	public void testBodyBuildMimeMessage() throws Exception {
+		
+		/*sets up host name, sender, recipients, body, Cc list, Bcc list, header, and reply list to build a mime message*/
+		email.setHostName("HostName");
+		email.setFrom("test@email.org");
+		email.addTo("testemail@emailtest.com");
+		email.setContent(new MimeMultipart());
+		for (int i = 0; i < 3; i++) {
+			email.addCc(TEST_EMAILS[i]);
+		}
+		email.addBcc(TEST_EMAILS);
+		email.addHeader("testHeader", "HeaderTest");
+		for (int i = 0; i < 3; i++) {
+			email.addReplyTo(TEST_EMAILS[i], "ReplyTest");
+		}
+		
+		
+		email.buildMimeMessage();
+		
+	}
+	/*Tests a successful buildMimeMessage with an object body*/
+	@Test
+	public void testContentBuildMimeMessage() throws Exception {
+		
+		/*sets up host name, sender, and recipients needed to build a mime message*/
+		email.setHostName("HostName");
+		email.setFrom("test@email.org");
+		email.addTo("testemail@emailtest.com");
+		email.setContent(new Object(), "String");
+		
+		email.buildMimeMessage();
+		
+	}
+	/*Tests the if the illegal state exception is thrown if buildMimeMessage() is called twice*/
+	@Test(expected=IllegalStateException.class)
+	public void testIllegalStateBuildMimeMessage() throws Exception {
+		
+		/*sets up host name, sender, and recipient needed to build a mime message*/
+		email.setHostName("HostName");
+		email.setFrom("test@email.org");
+		email.addTo("testemail@emailtest.com");
+		
+		email.buildMimeMessage();
+		email.buildMimeMessage();
+		
+	}
+	/*Tests the if the email exception is thrown if buildMimeMessage() is called without initializing a sender*/
+	@Test(expected=EmailException.class)
+	public void testNoSenderBuildMimeMessage() throws Exception {
+		
+		/*sets up host name and recipient but no sender*/
+		email.setHostName("HostName");
+		email.addTo("testemail@emailtest.com");
+		
+		email.buildMimeMessage();
+		
+	}
+	/*Tests the if the email exception is thrown if buildMimeMessage() is called without initializing a recipient*/
+	@Test(expected=EmailException.class)
+	public void testNoRecipientBuildMimeMessage() throws Exception {
+		
+		/*sets up host name and sender but no recipient*/
+		email.setHostName("HostName");
+		email.setFrom("test@email.org");
+		
+		email.buildMimeMessage();
+		
+	}
 }
