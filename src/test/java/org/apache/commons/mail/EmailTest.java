@@ -237,4 +237,14 @@ public class EmailTest {
 		Date actualResult = email.getSentDate();
 		assertEquals(new Date(), actualResult);
 	}
+
+	//Tests getSocketConnectionTimeout with 5 set as the connection timeout
+	@Test
+	public void testGetSocketConnectionTimeout() throws Exception {
+		//sets up a connection timeout of 5
+		email.setSocketConnectionTimeout(5);
+		
+		int actualResult = email.getSocketConnectionTimeout();
+		assertEquals(5, actualResult);
+	}
 }
