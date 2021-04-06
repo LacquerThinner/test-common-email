@@ -219,4 +219,22 @@ public class EmailTest {
 		
 		Session actualResult = email.getMailSession();
 	}
+
+	/*tests GetSentDate with a date set up beforehand*/
+	@Test
+	public void testGetSentDate() throws Exception {
+		
+		Date expectedResult = new Date();
+		email.setSentDate(expectedResult);
+		
+		Date actualResult = email.getSentDate();
+		assertEquals(expectedResult, actualResult);
+	}
+	/*tests GetSentDate with no date set up beforehand*/
+	@Test
+	public void testNullGetSentDate() throws Exception {
+		
+		Date actualResult = email.getSentDate();
+		assertEquals(new Date(), actualResult);
+	}
 }
